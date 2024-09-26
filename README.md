@@ -40,16 +40,7 @@ REGISTRY=ghcr.io/rcwbr/ IMAGE_NAME=release-it-docker docker buildx bake --file g
 
 Configuration for this repo is managed using [OpenTofu](https://opentofu.org/) with a [GCS state backend](https://opentofu.org/docs/language/settings/backends/gcs/). The configuration is managed in the `.infra` folder, and its deployment is automated through the GitHub Actions workflow.
 
-#### Repo configuration provisioning
-
-Initial provisioning of resources to enable infrastructue-as-code automation requires the following steps:
-
-1. Prepare a GCS project
-1. Retrieve a GCP access token
-  1. `export GOOGLE_OAUTH_ACCESS_TOKEN=$(docker run --rm -it gcr.io/google.com/cloudsdktool/google-cloud-cli -c 'gcloud auth application-default login && gcloud auth application-default print-access-token')`
-1. Plan and apply the provisioning resources from the IaC config:
-   1. `docker run --rm -e GOOGLE_OAUTH_ACCESS_TOKEN -v $(pwd)/.infra:/infra -w /infra devopsinfra/docker-terragrunt:ot-1.8.2-tg-0.67.10 -target`
-1. Trigger a `main` branch workflow to apply the remaining resources via GitHub Actions
+Relevant resources to configure this management system are defined in the [gha-gcp-opentofu repo](https://github.com/rcwbr/gha-gcp-opentofu), and initial provisioning of the infra-as-code was performed per the [documentation there]([url](https://github.com/rcwbr/gha-gcp-opentofu/blob/1-define-initial-opentofu-module/README.md#initial-provisioning)).
 
 #### Repo configuration workflow
 
