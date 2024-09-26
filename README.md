@@ -35,3 +35,20 @@ Build the image:
 ```bash
 REGISTRY=ghcr.io/rcwbr/ IMAGE_NAME=release-it-docker docker buildx bake --file github-cache-bake.hcl 'https://github.com/rcwbr/dockerfile-partials.git#main'
 ```
+
+### Repo configuration
+
+Configuration for this repo is managed using [OpenTofu](https://opentofu.org/) with a [GCS state backend](https://opentofu.org/docs/language/settings/backends/gcs/). The configuration is managed in the `.iac` folder, and its deployment is automated through the GitHub Actions workflow.
+
+#### Repo configuration provisioning
+
+Initial provisioning of resources to enable infrastructue-as-code automation requires the following steps:
+
+1. Prepare a GCS project
+1. Retrieve a GCP access token
+1. Plan and apply the provisioning resources from the IaC config using the `-target` arg
+1. Trigger a `main` branch workflow to apply the remaining resources via GitHub Actions
+
+#### Repo configuration workflow
+
+TODO
