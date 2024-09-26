@@ -35,3 +35,13 @@ Build the image:
 ```bash
 REGISTRY=ghcr.io/rcwbr/ IMAGE_NAME=release-it-docker docker buildx bake --file github-cache-bake.hcl 'https://github.com/rcwbr/dockerfile-partials.git#main'
 ```
+
+### Repo configuration
+
+Configuration for this repo is managed using [OpenTofu](https://opentofu.org/) with a [GCS state backend](https://opentofu.org/docs/language/settings/backends/gcs/). The configuration is managed in the `.infra` folder, and its deployment is automated through the GitHub Actions workflow.
+
+Relevant resources to configure this management system are defined in the [gha-gcp-opentofu repo](https://github.com/rcwbr/gha-gcp-opentofu), and initial provisioning of the infra-as-code was performed per the [documentation there]([url](https://github.com/rcwbr/gha-gcp-opentofu/blob/1-define-initial-opentofu-module/README.md#initial-provisioning)).
+
+#### Repo configuration workflow
+
+TODO
