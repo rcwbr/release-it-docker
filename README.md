@@ -46,7 +46,9 @@ Initial provisioning of resources to enable infrastructue-as-code automation req
 
 1. Prepare a GCS project
 1. Retrieve a GCP access token
-1. Plan and apply the provisioning resources from the IaC config using the `-target` arg
+  1. `export GCLOUD_TOKEN=$(docker run --rm -it gcr.io/google.com/cloudsdktool/google-cloud-cli -c 'gcloud auth application-default login && gcloud auth application-default print-access-token')`
+1. Plan and apply the provisioning resources from the IaC config:
+   1. `docker run --rm -e GCLOUD_TOKEN -v $(pwd)/.infra:/infra -w /infra devopsinfra/docker-terragrunt:ot-1.8.2-tg-0.67.10 -target`
 1. Trigger a `main` branch workflow to apply the remaining resources via GitHub Actions
 
 #### Repo configuration workflow
