@@ -1,5 +1,5 @@
 name: Push workflow
-on: [push]
+on: push
 jobs:
   # All PR jobs should be listed in required_status_checks https://github.com/rcwbr/release-it-docker/blob/0e9a5bcd8da40cac01686b6312df09bffdee810e/.github/settings.yml#L54
   build-docker-images:
@@ -20,11 +20,22 @@ jobs:
         name: Docker Buildx builder setup
         uses: docker/setup-buildx-action@v3.6.1
       -
-        name: Docker Bake
+        name: Docker Bake base
         uses: docker/bake-action@v5.7.0
         with:
+          workdir: base
           source: https://github.com/rcwbr/dockerfile-partials.git#main
           files: github-cache-bake.hcl
         env:
           REGISTRY: ghcr.io/rcwbr/
           IMAGE_NAME: release-it-docker
+      -
+        name: Docker Bake conventional-changelog
+        uses: docker/bake-action@v5.7.0
+        with:
+          workdir: conventional-changelog
+          source: https://github.com/rcwbr/dockerfile-partials.git#main
+          files: github-cache-bake.hcl, cwd://docker-bake.hcl
+        env:
+          REGISTRY: ghcr.io/rcwbr/
+          IMAGE_NAME: release-it-docker-conventional-changelog
