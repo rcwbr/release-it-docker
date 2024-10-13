@@ -1,6 +1,6 @@
 # release-it-docker
 
-Docker image wrapper for [release-it](https://github.com/release-it/release-it)
+Docker image wrappers for [release-it](https://github.com/release-it/release-it)
 
 ## Usage
 
@@ -13,6 +13,14 @@ docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0
 ```
 
 The container entrypoint is the `release-it` CLI executable.
+
+### Conventional-changelog image usage
+
+The conventional-changelog image includes the [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) [release-it plugin](https://github.com/release-it/conventional-changelog). To use the image:
+
+```
+docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.1.0
+```
 
 ## Contributing
 
@@ -39,6 +47,13 @@ Build the image:
 ```bash
 cd base
 REGISTRY=ghcr.io/rcwbr/ IMAGE_NAME=release-it-docker docker buildx bake --file github-cache-bake.hcl 'https://github.com/rcwbr/dockerfile-partials.git#main'
+```
+
+#### Build conventional-changelog image
+
+```bash
+cd conventional-changelog
+REGISTRY=ghcr.io/rcwbr/ IMAGE_NAME=release-it-docker-conventional-changelog docker buildx bake --file github-cache-bake.hcl --file cwd://docker-bake.hcl 'https://github.com/rcwbr/dockerfile-partials.git#main'
 ```
 
 ### Settings
