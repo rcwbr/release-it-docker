@@ -4,7 +4,9 @@ Docker image wrapper for [release-it](https://github.com/release-it/release-it)
 
 ## Usage
 
-To use the image:
+### Base image usage
+
+The base image includes the release-it tool only. To use the image:
 
 ```
 docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0
@@ -30,9 +32,12 @@ Authenticate to GitHub container registry (see [instructions](https://docs.githu
 echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 ```
 
+#### Build base image
+
 Build the image:
 
 ```bash
+cd base
 REGISTRY=ghcr.io/rcwbr/ IMAGE_NAME=release-it-docker docker buildx bake --file github-cache-bake.hcl 'https://github.com/rcwbr/dockerfile-partials.git#main'
 ```
 
