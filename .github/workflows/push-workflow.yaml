@@ -29,3 +29,13 @@ jobs:
         env:
           REGISTRY: ghcr.io/rcwbr/
           IMAGE_NAME: release-it-docker
+      -
+        name: Docker Bake conventional-changelog
+        uses: docker/bake-action@v5.7.0
+        with:
+          workdir: conventional-changelog
+          source: https://github.com/rcwbr/dockerfile-partials.git#main
+          files: github-cache-bake.hcl, cwd://docker-bake.hcl
+        env:
+          REGISTRY: ghcr.io/rcwbr/
+          IMAGE_NAME: release-it-docker-conventional-changelog
