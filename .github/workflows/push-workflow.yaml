@@ -1,6 +1,7 @@
 name: Push workflow
 on: [push]
 jobs:
+  # All PR jobs should be listed in required_status_checks https://github.com/rcwbr/release-it-docker/blob/0e9a5bcd8da40cac01686b6312df09bffdee810e/.github/settings.yml#L54
   build-docker-images:
     name: Build Docker images
     runs-on: ubuntu-24.04
