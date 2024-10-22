@@ -22,6 +22,14 @@ The conventional-changelog image includes the [conventional-changelog](https://g
 docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.1.0
 ```
 
+### Default configurations
+
+Both the base and conventional-changelog images provide a default [release-it configuration](https://github.com/release-it/release-it/blob/main/docs/configuration.md), located at `/.release-it.json`. To use this config, provide an arg to release-it:
+
+```bash
+docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0 --config /.release-it.json
+```
+
 ## Contributing
 
 ### Build
