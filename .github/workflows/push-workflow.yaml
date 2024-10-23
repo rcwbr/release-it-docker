@@ -43,37 +43,12 @@ jobs:
         env:
           REGISTRY: ghcr.io/rcwbr/
           IMAGE_NAME: release-it-docker-conventional-changelog
-  release-it-dry-run:
-    name: Release-it dry-run
-    runs-on: ubuntu-24.04
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4.1.7
-        with:
-          fetch-depth: 0
-      -
-        name: Release-it
-        uses: rcwbr/release-it-action/conventional-changelog-action@1-define-initial-action
-        with:
-          release-it-extra-args: --changelog
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  release-it:
-    name: Release-it
-    runs-on: ubuntu-24.04
+  release-it-workflow:
+    # uses: rcwbr/release-it-gh-workflow.github/workflows/release-it-workflow.yaml@0.1.0 TODO use released ref
+    uses: rcwbr/release-it-gh-workflow.github/workflows/release-it-workflow.yaml@1-define-initial-workflow
     permissions:
       contents: write
-    # Run full release process for pushes to main
-    if: ${{ github.ref == 'refs/heads/main' }}
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v4.1.7
-        with:
-          fetch-depth: 0
-      -
-        name: Release-it
-        uses: rcwbr/release-it-action/conventional-changelog-action@1-define-initial-action
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # with:
+    #   app-id: 1033419 # release-it-docker CI release-it app
+    #   app-environment: Repo release
+    #   app-secret-name: RELEASE_IT_GITHUB_APP_KEY # Secret belonging to the Repo release environment
