@@ -43,3 +43,12 @@ jobs:
         env:
           REGISTRY: ghcr.io/rcwbr/
           IMAGE_NAME: release-it-docker-conventional-changelog
+  release-it-workflow:
+    # uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.1.0 TODO use released ref
+    uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@1-define-initial-workflow
+    permissions:
+      contents: write
+    # with:
+    #   app-id: 1033419 # release-it-docker CI release-it app
+    #   app-environment: Repo release
+    #   app-secret-name: RELEASE_IT_GITHUB_APP_KEY # Secret belonging to the Repo release environment
