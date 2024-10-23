@@ -49,7 +49,7 @@ jobs:
     permissions:
       contents: write
     with:
-      default-branch: main2
+      default-branch: main2 # Ideally should be refs/heads/main2
     #   app-id: 1033419 # release-it-docker CI release-it app
     #   app-environment: Repo release
     #   app-secret-name: RELEASE_IT_GITHUB_APP_KEY # Secret belonging to the Repo release environment
