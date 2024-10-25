@@ -53,3 +53,4 @@ jobs:
       app-id: 1033419 # release-it-docker CI release-it app
       app-environment: Repo release
       app-secret-name: RELEASE_IT_GITHUB_APP_KEY # Secret belonging to the Repo release environment
+      # Comment
