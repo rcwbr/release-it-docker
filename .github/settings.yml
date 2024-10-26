@@ -1,7 +1,6 @@
 repository:
   name: release-it-docker
   description: Docker image wrapper for release-it
-  default_branch: main2
 
   # Prevent strategies other than basic merge, as they interfere with conventional changelog version inference
   allow_squash_merge: false
@@ -71,4 +70,3 @@ environments:
     deployment_branch_policy:
       custom_branches:
         - main
-
