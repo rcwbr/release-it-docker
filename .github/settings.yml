@@ -24,6 +24,9 @@ rulesets:
       - actor_id: 1033419
         actor_type: Integration
         bypass_mode: always
+      - actor_id: 5
+        actor_type: RepositoryRole
+        bypass_mode: always
     rules:
       - type: creation
       - type: deletion
@@ -38,7 +41,7 @@ rulesets:
           - "~DEFAULT_BRANCH"
         exclude: []
     bypass_actors:
-      - actor_id: 5
+      - actor_id: 5 # Based on https://registry.terraform.io/providers/integrations/github/latest/docs/resources/organization_ruleset#bypass_actors
         actor_type: RepositoryRole
         bypass_mode: pull_request
     rules:
@@ -59,7 +62,7 @@ rulesets:
           required_status_checks:
             - context: Build Docker images
               integration_id: 15368 # GitHub Actions integration ID
-            - context: release-it-workflow
+            - context: Release-it workflow
               integration_id: 15368 # GitHub Actions integration ID
           # Requires PR branches to be up-to-date with target
           strict_required_status_checks_policy: true
