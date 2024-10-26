@@ -1,6 +1,7 @@
 repository:
   name: release-it-docker
   description: Docker image wrapper for release-it
+  default_branch: main
 
   # Prevent strategies other than basic merge, as they interfere with conventional changelog version inference
   allow_squash_merge: false
