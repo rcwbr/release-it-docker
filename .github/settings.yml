@@ -68,3 +68,10 @@ rulesets:
           strict_required_status_checks_policy: true
 
 collaborators: [] # No collaborators defined
+
+environments:
+  - name: Repo release
+    deployment_branch_policy:
+      custom_branches:
+        - main
+
