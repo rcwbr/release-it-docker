@@ -21,7 +21,7 @@ rulesets:
           - "~ALL"
         exclude: []
     bypass_actors:
-      - actor_id: 1033419
+      - actor_id: 1033419 # release-it-docker-ci-release-it App ID
         actor_type: Integration
         bypass_mode: always
     rules:
