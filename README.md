@@ -30,6 +30,10 @@ Both the base and conventional-changelog images provide a default [release-it co
 docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0 --config /.release-it.json
 ```
 
+### GitHub workflow usage
+
+The recommended approach to apply this image in a GitHub workflow is via the reusable [release-it-gh-workflow](https://github.com/rcwbr/release-it-gh-workflow/tree/main).
+
 ## Contributing
 
 ### Build
