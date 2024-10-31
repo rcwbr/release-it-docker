@@ -25,7 +25,7 @@ jobs:
         uses: docker/bake-action@v5.7.0
         with:
           workdir: base
-          source: https://github.com/rcwbr/dockerfile-partials.git#main
+          source: https://github.com/rcwbr/dockerfile-partials.git#0.1.0
           files: github-cache-bake.hcl
           set: |
             default.context=cwd://
@@ -38,7 +38,7 @@ jobs:
         uses: docker/bake-action@v5.7.0
         with:
           workdir: conventional-changelog
-          source: https://github.com/rcwbr/dockerfile-partials.git#main
+          source: https://github.com/rcwbr/dockerfile-partials.git#0.1.0
           files: github-cache-bake.hcl, cwd://docker-bake.hcl
           set: |
             default.context=cwd://
