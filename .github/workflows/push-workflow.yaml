@@ -20,6 +20,7 @@ jobs:
         name: Docker Buildx builder setup
         uses: docker/setup-buildx-action@v3.6.1
       -
+        id: docker-bake-base
         name: Docker Bake base
         uses: docker/bake-action@v5.7.0
         with:
@@ -31,8 +32,8 @@ jobs:
         env:
           REGISTRY: ghcr.io/rcwbr/
           IMAGE_NAME: release-it-docker
-          GITHUB_REF_PROTECTED: ${{ github.ref_protected || github.ref_type == 'tag' }} # See https://github.com/orgs/community/discussions/142985
       -
+        id: docker-bake-conventional-changelog
         name: Docker Bake conventional-changelog
         uses: docker/bake-action@v5.7.0
         with:
@@ -44,12 +45,15 @@ jobs:
         env:
           REGISTRY: ghcr.io/rcwbr/
           IMAGE_NAME: release-it-docker-conventional-changelog
-          GITHUB_REF_PROTECTED: ${{ github.ref_protected || github.ref_type == 'tag' }} # See https://github.com/orgs/community/discussions/142985
+    outputs:
+      docker-bake-base-metadata: ${{ steps.docker-bake-base.outputs.metadata }}
+      docker-bake-conventional-changelog-metadata: ${{ steps.docker-bake-conventional-changelog.outputs.metadata }}
   release-it-workflow:
     name: Release-it workflow
-    # uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.1.0 TODO use released ref
-    uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@1-define-initial-workflow
+    uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.1.0
+    needs: build-docker-images
     with:
+      release-it-image: ${{ fromJSON(needs.build-docker-images.outputs.docker-bake-conventional-changelog-metadata)['default']['image.name'] }}
       app-id: 1033419 # release-it-docker CI release-it app
       app-environment: Repo release
     secrets:

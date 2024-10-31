@@ -4,7 +4,7 @@
 target "default" {
   contexts = {
     base = (
-      "${GITHUB_REF_PROTECTED}" == "true"
+      ("${GITHUB_REF_PROTECTED}" == "true" || "${GITHUB_REF_TYPE}" == "tag" )
       ? "docker-image://${REGISTRY}release-it-docker:${VERSION}"
       : "docker-image://${REGISTRY}release-it-docker:${VERSION}-${GITHUB_SHA}"
     )
