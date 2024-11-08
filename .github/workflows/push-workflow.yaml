@@ -49,7 +49,6 @@ jobs:
       docker-bake-base-metadata: ${{ steps.docker-bake-base.outputs.metadata }}
       docker-bake-conventional-changelog-metadata: ${{ steps.docker-bake-conventional-changelog.outputs.metadata }}
   release-it-workflow:
-    name: Release-it workflow
     uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.1.0
     needs: build-docker-images
     with:
