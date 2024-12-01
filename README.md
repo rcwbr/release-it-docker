@@ -22,6 +22,18 @@ The conventional-changelog image includes the [conventional-changelog](https://g
 docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.1.0
 ```
 
+### File bumper image usage
+
+The file-bumper image includes the [bumper release-it plugin](https://github.com/release-it/bumper). To use the image:
+
+```
+docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.1.0
+```
+
+If using the [default configuration](#default-configurations), it is configured to bump versions in a plaintext `VERSION` file. By default, it will replace the entire contents of the file with the version number.
+
+> :warning: Unlike the other images, the bumper release-it default configuration sets `git.commit` true (as the version file bump must be committed) and `git.pushArgs` to `["tags"]` so as to push the tag only and not commit to the default branch. It also configures `git.getLatestTagFromAllRefs` true so that the latest tag may still be discovered despite not being associated with a commit on the default branch.
+
 ### Default configurations
 
 Both the base and conventional-changelog images provide a default [release-it configuration](https://github.com/release-it/release-it/blob/main/docs/configuration.md), located at `/.release-it.json`. To use this config, provide an arg to release-it:
