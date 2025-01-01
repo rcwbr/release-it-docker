@@ -1,7 +1,9 @@
 {
   "git": {
+    "getLatestTagFromAllRefs": true,
     "commit": true,
     "tag": true,
+    "pushArgs": ["--tags"],
     "tagName": "${version}"
   },
   "github": {
@@ -9,20 +11,11 @@
   },
   "plugins": {
     "@release-it/bumper": {
-      "in": {
+      "out": {
         "file": "VERSION",
-        "type": "text/plain"
-      },
-      "out": [
-        {
-          "file": "VERSION",
-          "type": "text/plain"
-        },
-        {
-          "file": "README.md",
-          "type": "text/plain"
-        }
-      ]
+        "type": "text/plain",
+        "consumeWholeFile": true
+      }
     },
     "@release-it/conventional-changelog": {
       "preset": {
@@ -73,3 +66,4 @@
     }
   }
 }
+  

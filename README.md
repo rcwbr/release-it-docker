@@ -9,7 +9,7 @@ Docker image wrappers for [release-it](https://github.com/release-it/release-it)
 The base image includes the release-it tool only. To use the image:
 
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0
+docker run -it ghcr.io/rcwbr/release-it-docker:0.4.0
 ```
 
 The container entrypoint is the `release-it` CLI executable.
@@ -19,7 +19,7 @@ The container entrypoint is the `release-it` CLI executable.
 The conventional-changelog image includes the [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) [release-it plugin](https://github.com/release-it/conventional-changelog). To use the image:
 
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.1.0
+docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.4.0
 ```
 
 ### File bumper image usage
@@ -27,19 +27,41 @@ docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.1.0
 The file-bumper image includes the [bumper release-it plugin](https://github.com/release-it/bumper). To use the image:
 
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.1.0
+docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.4.0
 ```
 
-If using the [default configuration](#default-configurations), it is configured to bump versions in a plaintext `VERSION` file. By default, it will replace the entire contents of the file with the version number.
+If using the [default configuration](#default-configurations), it is configured to bump versions in a plaintext `VERSION` file in the repository root, as well as any references to the version in the `README.md` file. By default, it will replace the entire contents of the file with the version number.
 
-> :warning: Unlike the other images, the bumper release-it default configuration sets `git.commit` true (as the version file bump must be committed) and `git.pushArgs` to `["tags"]` so as to push the tag only and not commit to the default branch. It also configures `git.getLatestTagFromAllRefs` true so that the latest tag may still be discovered despite not being associated with a commit on the default branch.
+> :warning: Unlike the other images, the bumper release-it default configuration sets `git.commit` true (as the version bump changes must be committed). This results in a commit for the release on the default branch.
+
+#### File bumper tag-only config usage
+
+To support avoiding the above-mentioned behavior including a commit to the default branch, the file-bumper image includes a configuration file that directs release-it to apply the push the commit only as the release tag, not to any branch. It sets `git.pushArgs` to `["tags"]` so as to push the tag only and not commit to the default branch. It also configures `git.getLatestTagFromAllRefs` true so that the latest tag may still be discovered despite not being associated with a commit on the default branch.
+
+> :warning: This configuration outputs only to the `VERSION` file, not `README.md`, and replaces the entire file contents (vs. just the version pattern).
+
+To use this configuration option, specify the config file path as `/.tag-only-release-it.json`. For example:
+
+```bash
+docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.4.0 --config /.tag-only-release-it.json
+```
+
+Or using the [release-it-gh-workflow](https://github.com/rcwbr/release-it-gh-workflow/tree/main):
+
+```yaml
+jobs:
+  release-it-workflow:
+    uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.1.0
+    with:
+      release-it-config: /.tag-only-release-it.json
+```
 
 ### Default configurations
 
 Both the base and conventional-changelog images provide a default [release-it configuration](https://github.com/release-it/release-it/blob/main/docs/configuration.md), located at `/.release-it.json`. To use this config, provide an arg to release-it:
 
 ```bash
-docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0 --config /.release-it.json
+docker run -it ghcr.io/rcwbr/release-it-docker:0.4.0 --config /.release-it.json
 ```
 
 ### GitHub workflow usage
