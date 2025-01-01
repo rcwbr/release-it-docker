@@ -9,7 +9,7 @@ Docker image wrappers for [release-it](https://github.com/release-it/release-it)
 The base image includes the release-it tool only. To use the image:
 
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0
+docker run -it ghcr.io/rcwbr/release-it-docker:0.4.0
 ```
 
 The container entrypoint is the `release-it` CLI executable.
@@ -19,7 +19,7 @@ The container entrypoint is the `release-it` CLI executable.
 The conventional-changelog image includes the [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) [release-it plugin](https://github.com/release-it/conventional-changelog). To use the image:
 
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.1.0
+docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.4.0
 ```
 
 ### File bumper image usage
@@ -27,7 +27,7 @@ docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.1.0
 The file-bumper image includes the [bumper release-it plugin](https://github.com/release-it/bumper). To use the image:
 
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.1.0
+docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.4.0
 ```
 
 If using the [default configuration](#default-configurations), it is configured to bump versions in a plaintext `VERSION` file in the repository root, as well as any references to the version in the `README.md` file. By default, it will replace the entire contents of the file with the version number.
@@ -43,7 +43,7 @@ To support avoiding the above-mentioned behavior including a commit to the defau
 To use this configuration option, specify the config file path as `/.tag-only-release-it.json`. For example:
 
 ```bash
-docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.1.0 --config /.tag-only-release-it.json
+docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.4.0 --config /.tag-only-release-it.json
 ```
 
 Or using the [release-it-gh-workflow](https://github.com/rcwbr/release-it-gh-workflow/tree/main):
@@ -61,7 +61,7 @@ jobs:
 Both the base and conventional-changelog images provide a default [release-it configuration](https://github.com/release-it/release-it/blob/main/docs/configuration.md), located at `/.release-it.json`. To use this config, provide an arg to release-it:
 
 ```bash
-docker run -it ghcr.io/rcwbr/release-it-docker:0.1.0 --config /.release-it.json
+docker run -it ghcr.io/rcwbr/release-it-docker:0.4.0 --config /.release-it.json
 ```
 
 ### GitHub workflow usage
