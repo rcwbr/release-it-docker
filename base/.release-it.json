@@ -1,6 +1,7 @@
 {
   "git": {
-    "commit": false
+    "commit": false,
+    "commitMessage": "release: ${version}"
   },
   "github": {
     "release": true

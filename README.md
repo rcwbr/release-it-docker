@@ -70,6 +70,10 @@ The recommended approach to apply this image in a GitHub workflow is via the reu
 
 ## Contributing
 
+### Release-it config file layering
+
+The `.release-it.json` configuration files in the image subdirectories are merged using [jq](https://jqlang.github.io/jq/), such that the content of each JSON file represents only the delta to that of the base image. This combination logic is expressed within each image's Dockerfile.
+
 ### Build
 
 The recommended method to build the image is using [Docker Bake](https://docs.docker.com/reference/cli/docker/buildx/bake/) and the [Dockerfile partials GitHub cache bake file](https://github.com/rcwbr/dockerfile-partials/tree/main?tab=readme-ov-file#github-cache-bake-file). The steps to build the image using this method are as follows.
