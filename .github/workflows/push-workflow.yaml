@@ -63,7 +63,7 @@ jobs:
       docker-bake-conventional-changelog-metadata: ${{ steps.docker-bake-conventional-changelog.outputs.metadata }}
       docker-bake-file-bumper-metadata: ${{ steps.docker-bake-file-bumper.outputs.metadata }}
   release-it-workflow:
-    uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.1.0
+    uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.2.2
     needs: build-docker-images
     with:
       release-it-image: ${{ fromJSON(needs.build-docker-images.outputs.docker-bake-file-bumper-metadata)['default']['image.name'] }}
