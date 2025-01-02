@@ -1,13 +1,7 @@
 {
   "git": {
     "getLatestTagFromAllRefs": true,
-    "commit": true,
-    "tag": true,
-    "pushArgs": ["--tags"],
-    "tagName": "${version}"
-  },
-  "github": {
-    "release": true
+    "pushArgs": ["--tags"]
   },
   "plugins": {
     "@release-it/bumper": {
@@ -15,53 +9,6 @@
         "file": "VERSION",
         "type": "text/plain",
         "consumeWholeFile": true
-      }
-    },
-    "@release-it/conventional-changelog": {
-      "preset": {
-        "name": "conventionalcommits",
-        "types": [
-          {
-            "type": "feat",
-            "section": ":rocket: Features"
-          },
-          {
-            "type": "fix",
-            "section": ":bug: Bug fixes"
-          },
-          {
-            "type": "build",
-            "section": ":package: Build"
-          },
-          {
-            "type": "ci",
-            "section": ":robot: CI/CD"
-          },
-          {
-            "type": "docs",
-            "section": ":page_facing_up: Docs"
-          },
-          {
-            "type": "perf",
-            "section": ":checkered_flag: Performance"
-          },
-          {
-            "type": "refactor",
-            "section": ":twisted_rightwards_arrows: Refactor"
-          },
-          {
-            "type": "style",
-            "section": ":broom: Style"
-          },
-          {
-            "type": "test",
-            "section": ":test_tube: Tests"
-          },
-          {
-            "type": "chore",
-            "hidden": true
-          }
-        ]
       }
     }
   }
