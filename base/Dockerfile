@@ -1,4 +1,4 @@
-FROM node:22.9.0
+FROM base
 
 # Install JQ for use in combining config files
 RUN DEBIAN_FRONTEND=noninteractive \

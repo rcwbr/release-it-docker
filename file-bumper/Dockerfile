@@ -10,6 +10,5 @@ RUN jq --slurp '.[0] * .[1]' /combined-release-it.json /file-bumper-tag-only.jso
 
 FROM base
 
-RUN npm install -g @release-it/bumper
-COPY --from=config /combined-release-it.json /.release-it.json
-COPY --from=config /combined-release-it-tag-only.json /.tag-only-release-it.json
+RUN git config --global --add safe.directory '*'
+RUN npm install --global @release-it/bumper@7.0.5
