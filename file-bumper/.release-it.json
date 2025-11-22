@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "github:rcwbr/release-it-docker/conventional-changelog#0.7.0"
+  ],
   "git": {
     "commit": true
   },

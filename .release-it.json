@@ -1,0 +1,21 @@
+{
+  "extends": [ "file-bumper" ],
+  "plugins": {
+    "@release-it/bumper": {
+      "out": [
+        {
+          "file": "conventional-changelog/.release-it.json",
+          "type": "text/plain"
+        },
+        {
+          "file": "file-bumper/.release-it.json",
+          "type": "text/plain"
+        },
+        {
+          "file": "file-bumper/tag-only/.release-it.json",
+          "type": "text/plain"
+        }
+      ]
+    }
+  }
+}

@@ -69,5 +69,7 @@ jobs:
       release-it-image: ${{ fromJSON(needs.build-docker-images.outputs.docker-bake-file-bumper-metadata)['default']['image.name'] }}
       app-id: 1033419 # release-it-docker CI release-it app
       app-environment: Repo release
+      # Use custom release-it config
+      release-it-config: .release-it.json
     secrets:
       app-secret: ${{ secrets.RELEASE_IT_GITHUB_APP_KEY }} # Secret belonging to the Repo release environment
