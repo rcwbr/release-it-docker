@@ -11,7 +11,7 @@ To specify release-it configuration for the base image, apply this to the repo `
 ```json
 {
   "extends": [
-    "github:rcwbr/release-it-docker/base#0.7.1"
+    "github:rcwbr/release-it-docker/base#0.7.2"
   ]
 }
 ```
@@ -19,7 +19,7 @@ To specify release-it configuration for the base image, apply this to the repo `
 The base image includes the release-it tool only. To use the image:
 
 ```bash
-docker run -it ghcr.io/rcwbr/release-it-docker:0.7.1
+docker run -it ghcr.io/rcwbr/release-it-docker:0.7.2
 ```
 
 The container entrypoint is the `release-it` CLI executable.
@@ -33,7 +33,7 @@ To specify release-it configuration for conventional-changelog, apply this to th
 ```json
 {
   "extends": [
-    "github:rcwbr/release-it-docker/conventional-changelog#0.7.1"
+    "github:rcwbr/release-it-docker/conventional-changelog#0.7.2"
   ]
 }
 ```
@@ -41,7 +41,7 @@ To specify release-it configuration for conventional-changelog, apply this to th
 To use the image:
 
 ```bash
-docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.7.1
+docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.7.2
 ```
 
 ### File bumper image usage
@@ -53,7 +53,7 @@ To specify release-it configuration for file-bumper, apply this to the repo `.re
 ```json
 {
   "extends": [
-    "github:rcwbr/release-it-docker/file-bumper#0.7.1"
+    "github:rcwbr/release-it-docker/file-bumper#0.7.2"
   ]
 }
 ```
@@ -61,7 +61,7 @@ To specify release-it configuration for file-bumper, apply this to the repo `.re
 To use the image:
 
 ```bash
-docker run -it -v $(pwd):$(pwd) -w $(pwd) ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.1
+docker run -it -v $(pwd):$(pwd) -w $(pwd) ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.2
 ```
 
 If using the [default configuration](#default-configurations), it is configured to bump versions in a plaintext `VERSION` file in the repository root, as well as any references to the version in the `README.md` file. By default, it will replace the entire contents of the file with the version number.
@@ -79,7 +79,7 @@ To use this configuration option, apply this to the repo `.release-it.json`:
 ```json
 {
   "extends": [
-    "github:rcwbr/release-it-docker/file-bumper/tag-only#0.7.1"
+    "github:rcwbr/release-it-docker/file-bumper/tag-only#0.7.2"
   ]
 }
 ```
@@ -89,7 +89,7 @@ To use this configuration option, apply this to the repo `.release-it.json`:
 To support use of any tool in [release-it custom hooks](https://github.com/release-it/release-it?tab=readme-ov-file#hooks), each image contains the Docker CLI. By mounting the Docker socket to the release-it-docker container, hooks may themselves launch Docker containers. For example:
 
 ```bash
-docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):$(pwd) -w $(pwd) ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.1
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):$(pwd) -w $(pwd) ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.2
 ```
 
 with configuration:
@@ -97,7 +97,7 @@ with configuration:
 ```json
 {
   "extends": [
-    "github:rcwbr/release-it-docker/file-bumper#0.7.1"
+    "github:rcwbr/release-it-docker/file-bumper#0.7.2"
   ],
   "hooks": {
     "after:bump": [

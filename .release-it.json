@@ -1,5 +1,7 @@
 {
-  "extends": [ "file-bumper" ],
+  "extends": [
+    "github:rcwbr/release-it-docker/file-bumper#0.7.2"
+  ],
   "plugins": {
     "@release-it/bumper": {
       "out": [
