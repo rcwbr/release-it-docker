@@ -6,28 +6,62 @@ Docker image wrappers for [release-it](https://github.com/release-it/release-it)
 
 ### Base image usage
 
+To specify release-it configuration for the base image, apply this to the repo `.release-it.json`:
+
+```json
+{
+  "extends": [
+    "github:rcwbr/release-it-docker/base#0.7.1"
+  ]
+}
+```
+
 The base image includes the release-it tool only. To use the image:
 
-```
-docker run -it ghcr.io/rcwbr/release-it-docker:0.7.0
+```bash
+docker run -it ghcr.io/rcwbr/release-it-docker:0.7.1
 ```
 
 The container entrypoint is the `release-it` CLI executable.
 
 ### Conventional-changelog image usage
 
-The conventional-changelog image includes the [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) [release-it plugin](https://github.com/release-it/conventional-changelog). To use the image:
+The conventional-changelog image includes the [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog) [release-it plugin](https://github.com/release-it/conventional-changelog).
 
+To specify release-it configuration for conventional-changelog, apply this to the repo `.release-it.json`:
+
+```json
+{
+  "extends": [
+    "github:rcwbr/release-it-docker/conventional-changelog#0.7.1"
+  ]
+}
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.7.0
+
+To use the image:
+
+```bash
+docker run -it ghcr.io/rcwbr/release-it-docker-conventional-changelog:0.7.1
 ```
 
 ### File bumper image usage
 
-The file-bumper image includes the [bumper release-it plugin](https://github.com/release-it/bumper). To use the image:
+The file-bumper image includes the [bumper release-it plugin](https://github.com/release-it/bumper).
 
+To specify release-it configuration for file-bumper, apply this to the repo `.release-it.json`:
+
+```json
+{
+  "extends": [
+    "github:rcwbr/release-it-docker/file-bumper#0.7.1"
+  ]
+}
 ```
-docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.0
+
+To use the image:
+
+```bash
+docker run -it -v $(pwd):$(pwd) -w $(pwd) ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.1
 ```
 
 If using the [default configuration](#default-configurations), it is configured to bump versions in a plaintext `VERSION` file in the repository root, as well as any references to the version in the `README.md` file. By default, it will replace the entire contents of the file with the version number.
@@ -40,39 +74,46 @@ To support avoiding the above-mentioned behavior including a commit to the defau
 
 > :warning: This configuration outputs only to the `VERSION` file, not `README.md`, and replaces the entire file contents (vs. just the version pattern).
 
-To use this configuration option, specify the config file path as `/.tag-only-release-it.json`. For example:
+To use this configuration option, apply this to the repo `.release-it.json`:
+
+```json
+{
+  "extends": [
+    "github:rcwbr/release-it-docker/file-bumper/tag-only#0.7.1"
+  ]
+}
+```
+
+### Custom hooks usage
+
+To support use of any tool in [release-it custom hooks](https://github.com/release-it/release-it?tab=readme-ov-file#hooks), each image contains the Docker CLI. By mounting the Docker socket to the release-it-docker container, hooks may themselves launch Docker containers. For example:
 
 ```bash
-docker run -it ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.0 --config /.tag-only-release-it.json
+docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):$(pwd) -w $(pwd) ghcr.io/rcwbr/release-it-docker-file-bumper:0.7.1
 ```
 
-Or using the [release-it-gh-workflow](https://github.com/rcwbr/release-it-gh-workflow/tree/main):
+with configuration:
 
-```yaml
-jobs:
-  release-it-workflow:
-    uses: rcwbr/release-it-gh-workflow/.github/workflows/release-it-workflow.yaml@0.1.0
-    with:
-      release-it-config: /.tag-only-release-it.json
+```json
+{
+  "extends": [
+    "github:rcwbr/release-it-docker/file-bumper#0.7.1"
+  ],
+  "hooks": {
+    "after:bump": [
+      "docker run --rm -v $(pwd):$(pwd) -w $(pwd) ghcr.io/astral-sh/uv:0.9.11-python3.12-trixie-slim uv version ${version}"
+    ]
+  }
+}
 ```
 
-### Default configurations
-
-Both the base and conventional-changelog images provide a default [release-it configuration](https://github.com/release-it/release-it/blob/main/docs/configuration.md), located at `/.release-it.json`. To use this config, provide an arg to release-it:
-
-```bash
-docker run -it ghcr.io/rcwbr/release-it-docker:0.7.0 --config /.release-it.json
-```
+allows release-it to delegate the version bump for a [uv](https://github.com/astral-sh/uv) Python project to the `uv` tool and ensure appriopriate lockfile contents.
 
 ### GitHub workflow usage
 
 The recommended approach to apply this image in a GitHub workflow is via the reusable [release-it-gh-workflow](https://github.com/rcwbr/release-it-gh-workflow/tree/main).
 
 ## Contributing
-
-### Release-it config file layering
-
-The `.release-it.json` configuration files in the image subdirectories are merged using [jq](https://jqlang.github.io/jq/), such that the content of each JSON file represents only the delta to that of the base image. This combination logic is expressed within each image's Dockerfile.
 
 ### Build
 
