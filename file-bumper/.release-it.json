@@ -1,6 +1,6 @@
 {
   "extends": [
-    "github:rcwbr/release-it-docker/conventional-changelog#0.8.0"
+    "github:rcwbr/release-it-docker/conventional-changelog#0.8.1"
   ],
   "git": {
     "commit": true

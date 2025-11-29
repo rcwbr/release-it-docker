@@ -1,6 +1,6 @@
 {
   "extends": [
-    "github:rcwbr/release-it-docker/base#0.8.0"
+    "github:rcwbr/release-it-docker/base#0.8.1"
   ],
   "git": {
     "tag": true,
